@@ -6,14 +6,14 @@ import { Input } from '@/components/ui/input'
 
 const filters = [
   { id: 'all', label: 'All', active: true },
-  { id: 'romantic', label: 'Romantic', icon: '❤️' },
-  { id: 'casual', label: 'Casual', icon: '☕' },
-  { id: 'outdoor', label: 'Outdoor', icon: '🌳' },
-  { id: 'activity', label: 'Activity-based', icon: '🎳' },
-  { id: 'nightlife', label: 'Nightlife', icon: '🍸' },
+  { id: 'distinction', label: 'Distinction', icon: '⭐' },
+  { id: 'green-star', label: 'Green Star', icon: '🌱' },
+  { id: 'hotels', label: 'In KOSH Hotels', icon: '🏨' },
+  { id: 'booking', label: 'Online booking', icon: '📅' },
+  { id: 'days', label: 'Days open', icon: '📆' },
   { id: 'cuisine', label: 'Cuisine', icon: '🍽️' },
+  { id: 'services', label: 'Services / Facilities', icon: '🏪' },
   { id: 'price', label: 'Price', icon: '💰' },
-  { id: 'rating', label: 'Rating', icon: '⭐' },
 ]
 
 export function SearchFilters() {
@@ -22,7 +22,7 @@ export function SearchFilters() {
       <div className="relative">
         <Input
           type="search"
-          placeholder="Search for date spots in New York City"
+          placeholder="New York City, New York State, USA"
           className="w-full pl-10 pr-10"
         />
         <Button

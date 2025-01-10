@@ -10,22 +10,23 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/dater-logo.svg"
-              alt="Dater"
+              src="/placeholder.svg"
+              alt="Kosh"
               width={120}
               height={40}
               className="h-10 w-auto"
             />
+            <span className="text-red-600 font-medium">GUIDE</span>
           </Link>
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
           <Button variant="destructive">Restaurants</Button>
-          <Link href="/events" className="text-gray-600 hover:text-gray-900">
-            Events
+          <Link href="/hotels" className="text-gray-600 hover:text-gray-900">
+            Hotels
           </Link>
-          <Link href="/matches" className="text-gray-600 hover:text-gray-900">
-            Matches
+          <Link href="/magazine" className="text-gray-600 hover:text-gray-900">
+            Magazine
           </Link>
           <Link href="/favorites" className="text-gray-600 hover:text-gray-900">
             Favorites

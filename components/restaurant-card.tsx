@@ -9,7 +9,7 @@ interface RestaurantCardProps {
   cuisine: string
   price: string
   imageUrl: string
-  rating: number
+  distinction?: string
 }
 
 export function RestaurantCard({
@@ -18,7 +18,7 @@ export function RestaurantCard({
   cuisine,
   price,
   imageUrl,
-  rating,
+  distinction,
 }: RestaurantCardProps) {
   return (
     <Card className="overflow-hidden">
@@ -47,9 +47,9 @@ export function RestaurantCard({
             <span>{price}</span>
           </div>
         </div>
-        {rating && (
-          <div className="mt-2 text-yellow-500">
-            Rating: {rating.toFixed(1)} ⭐
+        {distinction && (
+          <div className="mt-2 text-red-600">
+            {distinction}
           </div>
         )}
       </CardContent>
