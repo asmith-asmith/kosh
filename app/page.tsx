@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { supabase } from '@/lib/supabase'
 import { Header } from '@/components/header'
 import { SearchFilters } from '@/components/search-filters'
 import { RestaurantCard } from '@/components/restaurant-card'
@@ -12,83 +13,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { restaurantService, Restaurant } from '@/services/restaurantService'
 
-const allRestaurants = [
-  {
-    name: "Runner & Stone",
-    location: "Brooklyn, USA",
-    cuisine: "Contemporary",
-    price: "$$",
-    imageUrl: "/placeholder.svg",
-  },
-  {
-    name: "Shalom Japan",
-    location: "Brooklyn, USA",
-    cuisine: "Fusion",
-    price: "$$",
-    imageUrl: "/placeholder.svg",
-    distinction: "Kosh Star",
-  },
-  {
-    name: "Le Bernardin",
-    location: "Manhattan, USA",
-    cuisine: "Seafood",
-    price: "$$$$",
-    imageUrl: "/placeholder.svg",
-    distinction: "Three Kosh Stars",
-  },
-  {
-    name: "Eleven Madison Park",
-    location: "Manhattan, USA",
-    cuisine: "American",
-    price: "$$$$",
-    imageUrl: "/placeholder.svg",
-    distinction: "Three Kosh Stars",
-  },
-  {
-    name: "Masa",
-    location: "Manhattan, USA",
-    cuisine: "Japanese",
-    price: "$$$$",
-    imageUrl: "/placeholder.svg",
-    distinction: "Three Kosh Stars",
-  },
-  {
-    name: "Per Se",
-    location: "Manhattan, USA",
-    cuisine: "French",
-    price: "$$$$",
-    imageUrl: "/placeholder.svg",
-    distinction: "Three Kosh Stars",
-  },
-  {
-    name: "Blue Hill at Stone Barns",
-    location: "Pocantico Hills, USA",
-    cuisine: "American",
-    price: "$$$",
-    imageUrl: "/placeholder.svg",
-    distinction: "Two Kosh Stars",
-  },
-  {
-    name: "Daniel",
-    location: "Manhattan, USA",
-    cuisine: "French",
-    price: "$$$$",
-    imageUrl: "/placeholder.svg",
-    distinction: "Two Kosh Stars",
-  },
-]
+
 
 export default function Page() {
   const [currentPage, setCurrentPage] = useState(1)
   const [sortBy, setSortBy] = useState('name')
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([])
   const itemsPerPage = 6
 
-  const sortedRestaurants = [...allRestaurants].sort((a, b) => {
+  useEffect(() => {
+    const loadRestaurants = async () => {
+      console.log("heree loadRestaurants");
+      const data = await restaurantService.fetchRestaurants()
+      console.log("heree loadRestaurants  ", data);
+      setRestaurants(data)
+    }
+    loadRestaurants()
+  }, [])
+
+  const sortedRestaurants = [...restaurants].sort((a, b) => {
     if (sortBy === 'name') {
-      return a.name.localeCompare(b.name)
+      return (a as any).name.localeCompare((b as any).name)
     } else if (sortBy === 'price') {
-      return a.price.length - b.price.length
+      return (a as any).price.length - (b as any).price.length
     }
     return 0
   })
@@ -97,7 +46,7 @@ export default function Page() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentRestaurants = sortedRestaurants.slice(indexOfFirstItem, indexOfLastItem)
 
-  const totalPages = Math.ceil(allRestaurants.length / itemsPerPage)
+  const totalPages = Math.ceil(restaurants.length / itemsPerPage)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -107,7 +56,7 @@ export default function Page() {
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-xl font-semibold">
-            New York City and surroundings: {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, allRestaurants.length)} of {allRestaurants.length} restaurants
+            New York City and surroundings: {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, restaurants.length)} of {restaurants.length} restaurants
           </h1>
           <div className="flex items-center gap-4">
             <Select onValueChange={(value) => setSortBy(value)}>
