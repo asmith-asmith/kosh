@@ -12,10 +12,13 @@ export interface Restaurant {
 export const restaurantService = {
   
   async fetchRestaurants(): Promise<Restaurant[]> {
+
     const { data, error } = await supabase
       .from('restaurants_1')
       .select('*')
-      console.log("rherer estaurants_1");
+      
+    console.log("rherer estaurants_1");
+
     if (error) {
       console.error('Error fetching restaurants:', error)
       console.log("Error");
@@ -25,6 +28,21 @@ export const restaurantService = {
     console.log("data ", data);
 
     return data || []
+  },
+  
+  fetchRestaurantById: async (id: string) => {
+    const { data, error } = await supabase
+      .from('restaurants_1')
+      .select('*')
+      .eq('id', id)
+      .single()
+
+    if (error) {
+      console.error('Error fetching restaurant:', error)
+      return null
+    }
+
+    return data
   }
 } 
 

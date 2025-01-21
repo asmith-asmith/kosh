@@ -1,0 +1,64 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { RestaurantCard } from '@/components/restaurant-card'
+import { Pagination } from '@/components/pagination'
+import { SortSelect } from '@/components/sort-select'
+import { restaurantService, Restaurant } from '@/services/restaurantService'
+
+export function RestaurantList() {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [sortBy, setSortBy] = useState('name')
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([])
+  const itemsPerPage = 6
+
+  useEffect(() => {
+    const loadRestaurants = async () => {
+      const data = await restaurantService.fetchRestaurants()
+      console.log("data ", data);
+      setRestaurants(data)
+    }
+    loadRestaurants()
+  }, [])
+
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const totalPages = Math.ceil(restaurants.length / itemsPerPage)
+
+  const sortedRestaurants = [...restaurants].sort((a, b) => {
+    if (sortBy === 'name') return a.name.localeCompare(b.name)
+    if (sortBy === 'rating') return (b.distinction?.length || 0) - (a.distinction?.length || 0)
+    if (sortBy === 'reviews') return b.name.localeCompare(a.name) // Placeholder, replace with actual review count when available
+    return 0
+  })
+
+  const currentRestaurants = sortedRestaurants.slice(indexOfFirstItem, indexOfLastItem)
+
+  return (
+    <>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-xl font-semibold">
+            {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, restaurants.length)} of {restaurants.length} restaurants
+        </h1>
+        <div className="flex items-center gap-4">
+          <SortSelect value={sortBy} onValueChange={setSortBy} />
+          <Pagination 
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {currentRestaurants.map((restaurant) => (
+          <RestaurantCard
+            key={restaurant.name}
+            id={restaurant.name.toLowerCase().replace(/\s+/g, '-')}
+            {...restaurant}
+          />
+        ))}
+      </div>
+    </>
+  )
+} 
