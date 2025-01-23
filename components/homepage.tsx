@@ -1,6 +1,5 @@
 'use client'
 
-import { SearchFilters } from '@/components/SearchFilters'
 import { HeroPost } from '@/components/hero-post'
 
 export function Homepage() {
