@@ -1,6 +1,6 @@
 'use client'
 
-import { Homepage } from '@/components/Homepage'
+import { Landingpage } from '@/components/Landingpage'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { SearchFilters } from '@/components/SearchFilters'
@@ -11,7 +11,7 @@ export default function Page() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header />
       <SearchFilters />
-      <Homepage />
+      <Landingpage />
       <FeaturedRestaurants />
       <Footer />
     </div>
