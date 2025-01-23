@@ -15,11 +15,8 @@ export default function BlogList() {
   useEffect(() => {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token")
-      const response = await fetch("/api/blog", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const headers: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {}
+      const response = await fetch("/api/blog", { headers })
       const data = await response.json()
       setPosts(data)
     }

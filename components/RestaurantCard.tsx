@@ -39,7 +39,7 @@ export function RestaurantCard({
       <Card className="overflow-hidden transition-transform hover:scale-[1.02]">
         <div className="relative aspect-square">
           <Image
-            src={imageUrl || '/filler.png'}
+            src={imageUrl || '/static/filler1.webp'}
             alt={name}
             fill
             className="object-cover"

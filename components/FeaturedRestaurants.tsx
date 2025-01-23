@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
+import { RestaurantCard } from '@/components/RestaurantCard'
 
 // Define the type for a restaurant
 interface Restaurant {
@@ -9,6 +9,9 @@ interface Restaurant {
   name: string;
   cuisine: string;
   featured: boolean;
+  location: string;
+  price: string;
+  imageUrl: string;
 }
 
 export default function FeaturedRestaurants() {
@@ -23,25 +26,22 @@ export default function FeaturedRestaurants() {
         // },
       })
       const data: Restaurant[] = await response.json()
-      console.log("data ", data);
-      setRestaurants(data.filter((restaurant) => restaurant.featured))
+      setRestaurants(data.filter((restaurant) => restaurant).slice(0, 3))
     }
     fetchRestaurants()
   }, [])
 
   return (
-    <div>
+    <main className="container mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold mt-8 mb-4">Featured Restaurants</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {restaurants.map((restaurant) => (
-          <Link key={restaurant.id} href={`/restaurants/${restaurant.id}`}>
-            <div className="border p-4 rounded hover:shadow-lg transition">
-              <h3 className="font-bold">{restaurant.name}</h3>
-              <p>{restaurant.cuisine}</p>
-            </div>
-          </Link>
+          <RestaurantCard
+            key={restaurant.name}
+            {...restaurant}
+          />
         ))}
       </div>
-    </div>
+    </main>
   )
 }

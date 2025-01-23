@@ -1,9 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { supabase } from "@/lib/supabase"
+
 // import jwt from "jsonwebtoken"
-
-console.log("HERERERERER")
-
 // async function verifyToken(token: string) {
 //   try {
 //     return jwt.verify(token, process.env.JWT_SECRET!)
@@ -13,21 +11,23 @@ console.log("HERERERERER")
 // }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  // const token = req.headers.get("Authorization")?.split(" ")[1]
 
+  // const token = req.headers.get("Authorization")?.split(" ")[1]
   // if (!token) {
   //   return NextResponse.json({ error: "No token provided" }, { status: 401 })
   // }
-
   // const decoded = await verifyToken(token)
-
   // if (!decoded) {
   //   return NextResponse.json({ error: "Invalid token" }, { status: 401 })
   // }
-  console.log("supabase ", supabase);
+  // console.log("supabase ", supabase);
 
-  const { data, error } = await supabase.from("restaurants_1").select("*")
-  console.log("data ", data);
+  const { data, error } = await supabase
+    .from("restaurants_1")
+    .select("*")
+    .eq('active', true)
+    // .order('published_at', { ascending: false })
+
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }

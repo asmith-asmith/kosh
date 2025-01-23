@@ -1,29 +1,25 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@supabase/supabase-js"
-import jwt from "jsonwebtoken"
+import { supabase } from "@/lib/supabase"
 
-const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_KEY!)
-
-async function verifyToken(token: string) {
-  try {
-    return jwt.verify(token, process.env.JWT_SECRET!)
-  } catch (error) {
-    return null
-  }
-}
+// import jwt from "jsonwebtoken"
+// async function verifyToken(token: string) {
+//   try {
+//     return jwt.verify(token, process.env.JWT_SECRET!)
+//   } catch (error) {
+//     return null
+//   }
+// }
 
 export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
-  const token = req.headers.get("Authorization")?.split(" ")[1]
-
-  if (!token) {
-    return NextResponse.json({ error: "No token provided" }, { status: 401 })
-  }
-
-  const decoded = await verifyToken(token)
-
-  if (!decoded) {
-    return NextResponse.json({ error: "Invalid token" }, { status: 401 })
-  }
+  
+  // const token = req.headers.get("Authorization")?.split(" ")[1]
+  // if (!token) {
+  //   return NextResponse.json({ error: "No token provided" }, { status: 401 })
+  // }
+  // const decoded = await verifyToken(token)
+  // if (!decoded) {
+  //   return NextResponse.json({ error: "Invalid token" }, { status: 401 })
+  // }
 
   const { data, error } = await supabase.from("blog_posts").select("*").eq("slug", params.slug).single()
 

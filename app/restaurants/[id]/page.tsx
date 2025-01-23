@@ -1,8 +1,8 @@
 'use client'
 
-import { Footer } from '@/components/footer'
-import RestaurantDetails from '@/components/restaurant-details'
-import { Header } from '@/components/header'
+import { Footer } from '@/components/Footer'
+import RestaurantDetails from '@/components/RestaurantDetails'
+import { Header } from '@/components/Header'
 
 export default function RestaurantPage({ params }: { params: { id: string } }) {
   return (

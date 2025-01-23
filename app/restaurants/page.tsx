@@ -1,15 +1,15 @@
-import Hero from "@/components/Hero"
 import FeaturedRestaurants from "@/components/FeaturedRestaurants"
 import { RestaurantList } from "@/components/RestaurantList"
-import { Header } from "@/components/header"
+import { Header } from "@/components/Header"
+import { Footer } from "@/components/Footer"
 
 export default function Home() {
   return (
-    <main>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header />
-      <Hero />
-      <RestaurantList />
       {/* <FeaturedRestaurants /> */}
-    </main>
+      <RestaurantList />
+      <Footer />
+    </div>
   )
 }

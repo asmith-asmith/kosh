@@ -17,15 +17,12 @@ export const restaurantService = {
       .from('restaurants_1')
       .select('*')
       
-    console.log("rherer estaurants_1");
 
     if (error) {
       console.error('Error fetching restaurants:', error)
       console.log("Error");
       return []
     }
-    console.log("heree after");
-    console.log("data ", data);
 
     return data || []
   },

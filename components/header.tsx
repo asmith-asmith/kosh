@@ -16,12 +16,11 @@ export function Header() {
               height={40}
               className="h-10 w-auto"
             /> */}
-            <span className="text-red-600 font-medium">KOSH GUIDE</span>
+            <span className="text-red-600 font-large"><b>KOSH GUIDE</b></span>
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center gap-8">
-          <Button variant="destructive">Restaurants</Button>
+        <nav className="hidden md:flex items-center gap-8 ml-auto pr-4">
           <Link href="/restaurants" className="text-gray-600 hover:text-gray-900">
             Restaurants
           </Link>
