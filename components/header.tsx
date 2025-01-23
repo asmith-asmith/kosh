@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { Menu, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 

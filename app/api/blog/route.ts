@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
   // if (!decoded) {
   //   return NextResponse.json({ error: "Invalid token" }, { status: 401 })
   // }
-
+  console.log(req)
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')

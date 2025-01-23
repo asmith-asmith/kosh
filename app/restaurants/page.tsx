@@ -1,4 +1,4 @@
-import FeaturedRestaurants from "@/components/FeaturedRestaurants"
+// import FeaturedRestaurants from "@/components/FeaturedRestaurants"
 import { RestaurantList } from "@/components/RestaurantList"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
