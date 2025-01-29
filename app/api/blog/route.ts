@@ -9,8 +9,8 @@ import { supabase } from "@/lib/supabase"
 //     return null
 //   }
 // }
-
 export async function GET(req: NextRequest) {
+  console.log("GET /api/blog")
   // const token = req.headers.get("Authorization")?.split(" ")[1]
   // if (!token) {
   //   return NextResponse.json({ error: "No token provided" }, { status: 401 })
@@ -19,12 +19,11 @@ export async function GET(req: NextRequest) {
   // if (!decoded) {
   //   return NextResponse.json({ error: "Invalid token" }, { status: 401 })
   // }
-  console.log(req)
+
   const { data, error } = await supabase
-    .from('blog_posts')
+    .from('blog_posts_1')
     .select('*')
-    .eq('status', 'published')
-    .order('published_at', { ascending: false })
+    .eq('is_published', 'true')
   
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })

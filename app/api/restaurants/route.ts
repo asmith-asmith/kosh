@@ -20,13 +20,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   // if (!decoded) {
   //   return NextResponse.json({ error: "Invalid token" }, { status: 401 })
   // }
-  // console.log("supabase ", supabase);
-  console.log(req)
+
   const { data, error } = await supabase
     .from("restaurants_1")
     .select("*")
     .eq('active', true)
-    // .order('published_at', { ascending: false })
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })

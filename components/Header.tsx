@@ -24,11 +24,8 @@ export function Header() {
           <Link href="/restaurants" className="text-gray-600 hover:text-gray-900">
             Restaurants
           </Link>
-          <Link href="/hotels" className="text-gray-600 hover:text-gray-900">
-            Hotels
-          </Link>
-          <Link href="/magazine" className="text-gray-600 hover:text-gray-900">
-            Magazine
+          <Link href="/blog" className="text-gray-600 hover:text-gray-900">
+            Blog
           </Link>
           <Link href="/favorites" className="text-gray-600 hover:text-gray-900">
             Favorites
