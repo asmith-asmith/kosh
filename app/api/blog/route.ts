@@ -11,6 +11,7 @@ import { supabase } from "@/lib/supabase"
 // }
 export async function GET(req: NextRequest) {
   console.log("GET /api/blog")
+  console.log('req:', req)
   // const token = req.headers.get("Authorization")?.split(" ")[1]
   // if (!token) {
   //   return NextResponse.json({ error: "No token provided" }, { status: 401 })

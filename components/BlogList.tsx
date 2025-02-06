@@ -6,6 +6,11 @@ import Image from "next/image"
 import { Clock } from "lucide-react"
 
 interface BlogPost {
+  tags: string[]
+  excerpt: string
+  readTime: string
+  category: string
+  thumbnail_url: string
   slug: string;
   title: string;
   date: string;
@@ -31,8 +36,8 @@ export default function BlogList() {
     <div className="max-w-[1200px] mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-8">Latest Articles</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post: any) => (
-          <Link href={`/blog/${post.slug}`}>
+        {posts.map((post: BlogPost) => (
+          <Link key={post.slug} href={`/blog/${post.slug}`}>
             <article className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
               <div className="relative aspect-[16/9]">
                 <Image

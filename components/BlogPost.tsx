@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
+// import Link from "next/link"
 import Image from "next/image"
 import { marked } from 'marked';
 import { Facebook, Twitter, Mail, Clock, Calendar } from "lucide-react"
@@ -12,7 +12,13 @@ interface BlogPostProps {
 }
 
 export default function BlogPost({ slug }: BlogPostProps) {
-  const [post, setPost] = useState<{ title: string; date: string; content: string } | null>(null)
+  const [post, setPost] = useState<{
+    tags: any;
+    thumbnail_url: string;
+    title: string;
+    date: string;
+    content: string 
+} | null>(null)
   console.log("fetching post BlogPost.tsx")
   useEffect(() => {
     const fetchPost = async () => {
