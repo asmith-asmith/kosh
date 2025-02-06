@@ -10,7 +10,7 @@ interface RestaurantCardProps {
   location: string
   cuisine: string
   price: string
-  imageUrl: string
+  image_url: string
   distinction?: string
 }
 
@@ -20,26 +20,26 @@ export function RestaurantCard({
   location,
   cuisine,
   price,
-  imageUrl,
+  image_url,
   distinction,
 }: RestaurantCardProps) {
-  // Log all restaurant data
-  console.log('Restaurant Data:', {
-    id,
-    name,
-    location,
-    cuisine, 
-    price,
-    imageUrl,
-    distinction
-  })
+  // // Log all restaurant data
+  // console.log('Restaurant Data:', {
+  //   id,
+  //   name,
+  //   location,
+  //   cuisine, 
+  //   price,
+  //   imageUrl,
+  //   distinction
+  // })
 
   return (
     <Link href={`/restaurants/${id}`}>
       <Card className="overflow-hidden transition-transform hover:scale-[1.02]">
         <div className="relative aspect-square">
           <Image
-            src={imageUrl || '/static/filler1.webp'}
+            src={image_url || '/static/filler3.webp'}
             alt={name}
             fill
             className="object-cover"

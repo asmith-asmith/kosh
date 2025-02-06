@@ -23,12 +23,21 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   const { data, error } = await supabase
     .from("restaurants_1")
-    .select("*")
+    .select(`
+      *,
+      images (
+        url
+      )
+    `)
     .eq('active', true)
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
-
-  return NextResponse.json(data)
+  const restaurantsWithImages = data.map((restaurant) => ({
+    ...restaurant,
+    image_url: restaurant.images[0]?.url || null,
+  }))
+  console.log('Restaurants:', restaurantsWithImages)
+  return NextResponse.json(restaurantsWithImages)
 }
