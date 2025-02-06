@@ -13,7 +13,7 @@ interface BlogPostProps {
 
 export default function BlogPost({ slug }: BlogPostProps) {
   const [post, setPost] = useState<{
-    tags: any;
+    tags: string[];
     thumbnail_url: string;
     title: string;
     date: string;
