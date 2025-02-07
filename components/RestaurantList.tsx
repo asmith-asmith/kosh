@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { RestaurantCard } from '@/components/RestaurantCard'
 import { Pagination } from '@/components/pagination'
 import { SortSelect } from '@/components/sort-select'
-import { Restaurant } from '@/services/restaurantService'
+import { Restaurant } from '@/types/supabase'
 import { SearchFilters } from './SearchFilters'
 
 export function RestaurantList() {
@@ -58,8 +58,6 @@ export function RestaurantList() {
           {currentRestaurants.map((restaurant) => (
             <RestaurantCard
               key={restaurant.name}
-              image_url={restaurant.image_url}
-              id={restaurant.name.toLowerCase().replace(/\s+/g, '-')}
               {...restaurant}
             />
           ))}

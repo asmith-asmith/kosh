@@ -9,7 +9,7 @@ interface RestaurantCardProps {
   name: string
   location: string
   cuisine: string
-  price: string
+  price_range: string
   image_url: string
   distinction?: string
 }
@@ -19,20 +19,10 @@ export function RestaurantCard({
   name,
   location,
   cuisine,
-  price,
+  price_range,
   image_url,
   distinction,
 }: RestaurantCardProps) {
-  // // Log all restaurant data
-  // console.log('Restaurant Data:', {
-  //   id,
-  //   name,
-  //   location,
-  //   cuisine, 
-  //   price,
-  //   imageUrl,
-  //   distinction
-  // })
 
   return (
     <Link href={`/restaurants/${id}`}>
@@ -69,7 +59,7 @@ export function RestaurantCard({
             <p>{location}</p>
             <div className="flex justify-between items-center mt-1">
               <span>{cuisine}</span>
-              <span>{price}</span>
+              <span>{price_range}</span>
             </div>
           </div>
           {distinction && (
