@@ -1,6 +1,31 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { supabase } from "@/lib/supabase"
 
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+  const { data, error } = await supabase
+    .from("restaurants_1")
+    .select(`
+      *,
+      images (
+        url
+      )
+    `)
+    .eq("id", params.id)
+    .single()
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  const restaurantWithImage = {
+    ...data,
+    image_url: data.images[0]?.url || null,
+  }
+
+  console.log('Restaurant:', restaurantWithImage)
+  return NextResponse.json(restaurantWithImage)
+}
+
 // import jwt from "jsonwebtoken"
 // async function verifyToken(token: string) {
 //   try {
@@ -9,8 +34,6 @@ import { supabase } from "@/lib/supabase"
 //     return null
 //   }
 // }
-
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   // const token = req.headers.get("Authorization")?.split(" ")[1]
   // if (!token) {
   //   return NextResponse.json({ error: "No token provided" }, { status: 401 })
@@ -19,14 +42,3 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   // if (!decoded) {
   //   return NextResponse.json({ error: "Invalid token" }, { status: 401 })
   // }
-
-  const { data, error } = await supabase.from("restaurants_1").select("*").eq("id", params.id).single()
-
-  console.log("data ", data);
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
-
-  return NextResponse.json(data)
-}
-

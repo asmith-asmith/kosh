@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { RestaurantCard } from '@/components/RestaurantCard'
 import { Pagination } from '@/components/pagination'
 import { SortSelect } from '@/components/sort-select'
-import { restaurantService, Restaurant } from '@/services/restaurantService'
+import { Restaurant } from '@/types/supabase'
 import { SearchFilters } from './SearchFilters'
 
 export function RestaurantList() {
@@ -15,8 +15,9 @@ export function RestaurantList() {
 
   useEffect(() => {
     const loadRestaurants = async () => {
-      const data = await restaurantService.fetchRestaurants()
-      console.log("data ", data);
+      const response = await fetch('/api/restaurants')
+      const data = await response.json()
+      console.log("data ", data)
       setRestaurants(data)
     }
     loadRestaurants()
@@ -57,7 +58,6 @@ export function RestaurantList() {
           {currentRestaurants.map((restaurant) => (
             <RestaurantCard
               key={restaurant.name}
-              id={restaurant.name.toLowerCase().replace(/\s+/g, '-')}
               {...restaurant}
             />
           ))}

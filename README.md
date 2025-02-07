@@ -41,126 +41,162 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Tables and Relationships
 
-### 1. Restaurants
-- **id**: `SERIAL` (Primary Key)
-- **name**: `VARCHAR(255)` (NOT NULL)
-- **phone**: `VARCHAR(20)` (NULLABLE)
-- **address**: `TEXT` (NOT NULL)
-- **location_id**: `INTEGER` (Foreign Key → Locations.id, NOT NULL)
-- **category_id**: `INTEGER` (Foreign Key → Categories.id, NOT NULL)
-- **website**: `TEXT` (NULLABLE)
-- **social_media**: `JSONB` (Optional, for storing links dynamically)
-- **created_at**: `TIMESTAMP` (DEFAULT `NOW()`)
-- **updated_at**: `TIMESTAMP` (DEFAULT `NOW()` ON UPDATE)
+## 1. Restaurants
+- **id**: `SERIAL PRIMARY KEY`
+- **name**: `VARCHAR(255) NOT NULL`
+- **phone**: `VARCHAR(20) NULLABLE`
+- **address**: `TEXT NOT NULL`
+- **location_id**: `INTEGER NOT NULL` (Foreign Key → `Locations.id`)
+- **category_id**: `INTEGER NOT NULL` (Foreign Key → `Categories.id`)
+- **website**: `TEXT NULLABLE`
+- **social_media**: `JSONB NULLABLE` (For storing dynamic social media links)
+- **created_at**: `TIMESTAMP DEFAULT NOW()`
+- **updated_at**: `TIMESTAMP DEFAULT NOW() ON UPDATE`
 
-**Relationships**:
+### Relationships:
 - Belongs to: `Locations`, `Categories`
-- Has many: `Reviews`, `Photos`, `SocialMediaLinks`
+- Has many: `Reviews`, `Photos`, `SocialMediaLinks`, `BlogPosts`
 - Has one: `Ratings` (Optional)
 
 ---
 
-### 2. Locations
-- **id**: `SERIAL` (Primary Key)
-- **city**: `VARCHAR(100)` (NOT NULL)
-- **state**: `VARCHAR(50)` (NOT NULL)
-- **country**: `VARCHAR(50)` (NOT NULL)
+## 2. Locations
+- **id**: `SERIAL PRIMARY KEY`
+- **neighborhood**: `VARCHAR(100) NOT NULL`
+- **city**: `VARCHAR(100) NOT NULL` 
+- **state**: `VARCHAR(50) NOT NULL`
+- **country**: `VARCHAR(50) NOT NULL`
 
-**Relationships**:
+### Relationships:
 - Has many: `Restaurants`
 
 ---
 
-### 3. Categories
-- **id**: `SERIAL` (Primary Key)
-- **name**: `VARCHAR(50)` (NOT NULL)
+## 3. Categories
+- **id**: `SERIAL PRIMARY KEY`
+- **name**: `VARCHAR(50) NOT NULL`
 
-**Relationships**:
+### Relationships:
 - Has many: `Restaurants`
 
 ---
 
-### 4. Reviews
-- **id**: `SERIAL` (Primary Key)
-- **restaurant_id**: `INTEGER` (Foreign Key → Restaurants.id, NOT NULL)
-- **user_id**: `INTEGER` (Foreign Key → Users.id, NOT NULL)
-- **rating**: `SMALLINT` (CHECK `rating BETWEEN 1 AND 5`, NOT NULL)
-- **comment**: `TEXT` (NULLABLE)
-- **created_at**: `TIMESTAMP` (DEFAULT `NOW()`)
+## 4. Reviews
+- **id**: `SERIAL PRIMARY KEY`
+- **restaurant_id**: `INTEGER NOT NULL` (Foreign Key → `Restaurants.id`)
+- **user_id**: `INTEGER NOT NULL` (Foreign Key → `Users.id`)
+- **rating**: `SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5)`
+- **comment**: `TEXT NULLABLE`
+- **created_at**: `TIMESTAMP DEFAULT NOW()`
 
-**Relationships**:
+### Relationships:
 - Belongs to: `Restaurants`, `Users`
 
 ---
 
-### 5. Users
-- **id**: `SERIAL` (Primary Key)
-- **name**: `VARCHAR(100)` (NOT NULL)
-- **email**: `VARCHAR(255)` (UNIQUE, NOT NULL)
-- **password**: `TEXT` (NOT NULL)
-- **profile_picture**: `TEXT` (NULLABLE)
+## 5. Users
+- **id**: `SERIAL PRIMARY KEY`
+- **name**: `VARCHAR(100) NOT NULL`
+- **email**: `VARCHAR(255) UNIQUE NOT NULL`
+- **password**: `TEXT NOT NULL`
+- **profile_picture**: `TEXT NULLABLE`
 
-**Relationships**:
-- Has many: `Reviews`, `Favorites`
+### Relationships:
+- Has many: `Reviews`, `Favorites`, `BlogPosts`
 
 ---
 
-### 6. Ratings (Optional)
-- **id**: `SERIAL` (Primary Key)
-- **restaurant_id**: `INTEGER` (Foreign Key → Restaurants.id, NOT NULL, UNIQUE)
-- **average_rating**: `DECIMAL(3, 2)` (DEFAULT `0.0`, NOT NULL)
-- **total_reviews**: `INTEGER` (DEFAULT `0`, NOT NULL)
+## 6. Ratings (Optional)
+- **id**: `SERIAL PRIMARY KEY`
+- **restaurant_id**: `INTEGER NOT NULL UNIQUE` (Foreign Key → `Restaurants.id`)
+- **average_rating**: `DECIMAL(3, 2) DEFAULT 0.0 NOT NULL`
+- **total_reviews**: `INTEGER DEFAULT 0 NOT NULL`
 
-**Relationships**:
+### Relationships:
 - Belongs to: `Restaurants`
 
 ---
 
-### 7. SocialMediaLinks
-- **id**: `SERIAL` (Primary Key)
-- **restaurant_id**: `INTEGER` (Foreign Key → Restaurants.id, NOT NULL)
-- **platform**: `VARCHAR(50)` (NOT NULL, e.g., "Instagram", "TikTok")
-- **url**: `TEXT` (NOT NULL)
-- **created_at**: `TIMESTAMP` (DEFAULT `NOW()`)
+## 7. SocialMediaLinks
+- **id**: `SERIAL PRIMARY KEY`
+- **restaurant_id**: `INTEGER NOT NULL` (Foreign Key → `Restaurants.id`)
+- **platform**: `VARCHAR(50) NOT NULL` (e.g., "Instagram", "TikTok")
+- **url**: `TEXT NOT NULL`
+- **created_at**: `TIMESTAMP DEFAULT NOW()`
 
-**Relationships**:
+### Relationships:
 - Belongs to: `Restaurants`
 
 ---
 
-### 8. Photos
-- **id**: `SERIAL` (Primary Key)
-- **restaurant_id**: `INTEGER` (Foreign Key → Restaurants.id, NOT NULL)
-- **url**: `TEXT` (NOT NULL)
-- **description**: `TEXT` (NULLABLE)
-- **uploaded_at**: `TIMESTAMP` (DEFAULT `NOW()`)
+## 8. Photos
+- **id**: `SERIAL PRIMARY KEY`
+- **restaurant_id**: `INTEGER NOT NULL` (Foreign Key → `Restaurants.id`)
+- **url**: `TEXT NOT NULL`
+- **description**: `TEXT NULLABLE`
+- **uploaded_at**: `TIMESTAMP DEFAULT NOW()`
 
-**Relationships**:
+### Relationships:
 - Belongs to: `Restaurants`
 
 ---
 
-### 9. Favorites
-- **id**: `SERIAL` (Primary Key)
-- **user_id**: `INTEGER` (Foreign Key → Users.id, NOT NULL)
-- **restaurant_id**: `INTEGER` (Foreign Key → Restaurants.id, NOT NULL)
-- **created_at**: `TIMESTAMP` (DEFAULT `NOW()`)
+## 9. Favorites
+- **id**: `SERIAL PRIMARY KEY`
+- **user_id**: `INTEGER NOT NULL` (Foreign Key → `Users.id`)
+- **restaurant_id**: `INTEGER NOT NULL` (Foreign Key → `Restaurants.id`)
+- **created_at**: `TIMESTAMP DEFAULT NOW()`
 
-**Relationships**:
+### Relationships:
 - Belongs to: `Users`, `Restaurants`
 
 ---
 
-## Relationships Summary
-1. **Restaurants → Locations**: Many-to-One
-2. **Restaurants → Categories**: Many-to-One
-3. **Restaurants → Reviews**: One-to-Many
-4. **Restaurants → SocialMediaLinks**: One-to-Many
-5. **Restaurants → Ratings**: One-to-One (Optional)
-6. **Restaurants → Photos**: One-to-Many
-7. **Users → Reviews**: One-to-Many
-8. **Users → Favorites → Restaurants**: Many-to-Many
+## 10. BlogPosts
+- **id**: `SERIAL PRIMARY KEY`
+- **user_id**: `INTEGER NOT NULL` (Foreign Key → `Users.id`)
+- **restaurant_id**: `INTEGER NULLABLE` (Foreign Key → `Restaurants.id`) *(Optional for restaurant-related blogs)*
+- **title**: `TEXT NOT NULL`
+- **slug**: `TEXT UNIQUE NOT NULL`
+- **content**: `TEXT NOT NULL` (Markdown format)
+- **thumbnail_url**: `TEXT NULLABLE`
+- **tags**: `JSONB NULLABLE` (For storing tags dynamically)
+- **created_at**: `TIMESTAMP DEFAULT NOW()`
+- **updated_at**: `TIMESTAMP DEFAULT NOW() ON UPDATE`
+- **is_published**: `BOOLEAN DEFAULT FALSE`
+
+### Relationships:
+- Belongs to: `Users`
+- Optional belongs to: `Restaurants`
 
 ---
 
-Let me know if you need SQL scripts for this setup or further refinements! 😊
+## 11. BlogTags (Optional)
+- **id**: `SERIAL PRIMARY KEY`
+- **name**: `VARCHAR(50) UNIQUE NOT NULL`
+
+---
+
+## 12. PostTags (Optional)
+- **id**: `SERIAL PRIMARY KEY`
+- **post_id**: `INTEGER NOT NULL` (Foreign Key → `BlogPosts.id`)
+- **tag_id**: `INTEGER NOT NULL` (Foreign Key → `BlogTags.id`)
+
+---
+
+### Relationships Summary:
+- **Restaurants → BlogPosts**: One-to-Many (Optional)
+- **Users → BlogPosts**: One-to-Many
+- **BlogPosts → BlogTags**: Many-to-Many (Optional)
+
+---
+
+### Usage Example for BlogPosts:
+1. **Admin writes a blog**:
+   - Writes Markdown content for a blog in a rich text editor.
+   - Saves it to `BlogPosts.content` as raw Markdown.
+2. **Frontend renders the blog**:
+   - Fetches the Markdown from `BlogPosts.content`.
+   - Converts Markdown to HTML using a library like `marked` or `remark`.
+3. **Display**:
+   - HTML is rendered in the blog section of the site.

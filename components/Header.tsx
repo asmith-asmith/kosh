@@ -11,12 +11,12 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2">
             {/* <Image
               src="/placeholder.svg"
-              alt="Kosh"
+              alt="Babeten"
               width={120}
               height={40}
               className="h-10 w-auto"
             /> */}
-            <span className="text-red-600 font-large"><b>KOSH GUIDE</b></span>
+            <span className="text-red-600 font-large"><b>BABETEN</b></span>
           </Link>
         </div>
 
@@ -24,11 +24,8 @@ export function Header() {
           <Link href="/restaurants" className="text-gray-600 hover:text-gray-900">
             Restaurants
           </Link>
-          <Link href="/hotels" className="text-gray-600 hover:text-gray-900">
-            Hotels
-          </Link>
-          <Link href="/magazine" className="text-gray-600 hover:text-gray-900">
-            Magazine
+          <Link href="/blog" className="text-gray-600 hover:text-gray-900">
+            Blog
           </Link>
           <Link href="/favorites" className="text-gray-600 hover:text-gray-900">
             Favorites

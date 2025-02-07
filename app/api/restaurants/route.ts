@@ -12,6 +12,9 @@ import { supabase } from "@/lib/supabase"
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
 
+  console.log('GET /api/restaurants')
+  console.log('req:', req)
+
   // const token = req.headers.get("Authorization")?.split(" ")[1]
   // if (!token) {
   //   return NextResponse.json({ error: "No token provided" }, { status: 401 })
@@ -20,17 +23,24 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   // if (!decoded) {
   //   return NextResponse.json({ error: "Invalid token" }, { status: 401 })
   // }
-  // console.log("supabase ", supabase);
-  console.log(req)
+
   const { data, error } = await supabase
     .from("restaurants_1")
-    .select("*")
+    .select(`
+      *,
+      images (
+        url
+      )
+    `)
     .eq('active', true)
-    // .order('published_at', { ascending: false })
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
-
-  return NextResponse.json(data)
+  const restaurantsWithImages = data.map((restaurant) => ({
+    ...restaurant,
+    image_url: restaurant.images[0]?.url || null,
+  }))
+  console.log('Restaurants:', restaurantsWithImages)
+  return NextResponse.json(restaurantsWithImages)
 }

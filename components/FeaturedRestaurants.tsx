@@ -2,17 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { RestaurantCard } from '@/components/RestaurantCard'
-
-// Define the type for a restaurant
-interface Restaurant {
-  id: string;
-  name: string;
-  cuisine: string;
-  featured: boolean;
-  location: string;
-  price: string;
-  imageUrl: string;
-}
+import { Restaurant } from '@/types/supabase'
 
 export default function FeaturedRestaurants() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([])
