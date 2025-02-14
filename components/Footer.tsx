@@ -9,7 +9,7 @@ export function Footer() {
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <p>Email: contact@example.com</p>
+            <p>Email: babeten@gmail.com</p>
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-4">Follow Us</h3>

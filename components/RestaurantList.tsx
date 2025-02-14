@@ -11,13 +11,12 @@ export function RestaurantList() {
   const [currentPage, setCurrentPage] = useState(1)
   const [sortBy, setSortBy] = useState('name')
   const [restaurants, setRestaurants] = useState<Restaurant[]>([])
-  const itemsPerPage = 6
+  const itemsPerPage = 12
 
   useEffect(() => {
     const loadRestaurants = async () => {
       const response = await fetch('/api/restaurants')
       const data = await response.json()
-      console.log("data ", data)
       setRestaurants(data)
     }
     loadRestaurants()
@@ -54,7 +53,7 @@ export function RestaurantList() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {currentRestaurants.map((restaurant) => (
             <RestaurantCard
               key={restaurant.name}

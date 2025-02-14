@@ -76,3 +76,7 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.markdown-content {
+  @apply object-cover;
+}

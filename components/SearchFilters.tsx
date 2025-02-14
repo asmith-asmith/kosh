@@ -22,16 +22,17 @@ export function SearchFilters() {
       <div className="relative">
         <Input
           type="search"
-          placeholder="New York City, New York State, USA"
+          placeholder="eg. New York City, New York State, USA"
           className="w-full pl-10 pr-10"
+          
         />
-        <Button
+        {/* <Button
           variant="ghost"
           size="sm"
           className="absolute right-2 top-1/2 -translate-y-1/2"
-        >
-          <X className="h-4 w-4" />
-        </Button>
+        > */}
+          {/* <X className="h-4 w-4" /> */}
+        {/* </Button> */}
       </div>
       
       <div className="flex gap-2 overflow-x-auto pb-2">
