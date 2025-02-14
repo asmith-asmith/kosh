@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 // import Link from "next/link"
 import Image from "next/image"
-import { marked } from 'marked';
+// import { marked } from 'marked';
 import ReactMarkdown from "react-markdown";
 import { Facebook, Twitter, Mail, Clock, Calendar } from "lucide-react"
 
