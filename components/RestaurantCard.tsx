@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card'
 interface RestaurantCardProps {
   id: string
   name: string
-  location: string
+  address: string
   cuisine: string
   price_range: string
   image_url: string
@@ -17,7 +17,7 @@ interface RestaurantCardProps {
 export function RestaurantCard({
   id,
   name,
-  location,
+  address,
   cuisine,
   price_range,
   image_url,
@@ -56,7 +56,7 @@ export function RestaurantCard({
         <CardContent className="p-4">
           <h3 className="font-semibold mb-1">{name}</h3>
           <div className="text-sm text-gray-600">
-            <p>{location}</p>
+            <p>{address}</p>
             <div className="flex justify-between items-center mt-1">
               <span>{cuisine}</span>
               <span>{price_range}</span>

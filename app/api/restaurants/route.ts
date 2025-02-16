@@ -41,6 +41,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     ...restaurant,
     image_url: restaurant.images[0]?.url || null,
   }))
-  console.log('Restaurants:', restaurantsWithImages)
+  
   return NextResponse.json(restaurantsWithImages)
 }

@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react"
 // import Link from "next/link"
 import Image from "next/image"
-import { marked } from 'marked';
+// import { marked } from 'marked';
+import ReactMarkdown from "react-markdown";
 import { Facebook, Twitter, Mail, Clock, Calendar } from "lucide-react"
 
 
@@ -29,46 +30,7 @@ export default function BlogPost({ slug }: BlogPostProps) {
         },
       })
       const data = await response.json()
-      
 
-      data.content = marked(data.content)
-      console.log(data)
-      console.log(data.content)
-      const postContent = `
-        <h2>Introduction</h2>
-        <p>This is the introduction paragraph of the blog post. It can contain <strong>bold text</strong>, <em>italic text</em>, and even <a href="#">links</a>.</p>
-
-        <h3>Main Section</h3>
-        <p>Here's the main content of the blog post. You can include various HTML elements:</p>
-        <ul>
-          <li>Unordered list item 1</li>
-          <li>Unordered list item 2</li>
-          <li>Unordered list item 3</li>
-        </ul>
-
-        <p>You can also include ordered lists:</p>
-        <ol>
-          <li>First item</li>
-          <li>Second item</li>
-          <li>Third item</li>
-        </ol>
-
-        <blockquote>
-          <p>This is a blockquote. It's great for highlighting important quotes or information.</p>
-        </blockquote>
-
-        <h3>Another Section</h3>
-        <p>You can continue with more paragraphs and sections as needed.</p>
-
-        <figure>
-          <img src="/path/to/image.jpg" alt="Description of the image" />
-          <figcaption>This is the caption for the image</figcaption>
-        </figure>
-
-        <p>Remember, you can use any valid HTML tags that are supported by the Tailwind Typography plugin.</p>
-      `;
-
-      data.content = postContent
       setPost(data)
     }
     fetchPost()
@@ -134,10 +96,11 @@ export default function BlogPost({ slug }: BlogPostProps) {
             className="object-cover rounded-lg"
           />
         </div>
-
         {/* Article Content */}
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-
+        {/* <div dangerouslySetInnerHTML={{ <ReactMarkdown children={post.content} /> }} /> */}
+        <div className="prose max-w-none">
+          <ReactMarkdown>{post.content}</ReactMarkdown>
+        </div>
         {/* Related Content Sidebar */}
         {/* <aside className="fixed right-8 top-1/3 w-80">
           {post.related_restaurants?.map((restaurant: any) => (
